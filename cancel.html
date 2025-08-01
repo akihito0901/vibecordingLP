@@ -227,9 +227,7 @@
     <script>
         // カウントダウンタイマー
         function updateCountdown() {
-            const deadline = new Date();
-            deadline.setDate(deadline.getDate() + 30); // 30日後
-            deadline.setHours(23, 59, 59, 999); // 23:59:59に設定
+            const deadline = new Date('2024-08-31T23:59:59+09:00'); // 8月31日23:59:59 JST
             
             const now = new Date();
             const timeLeft = deadline - now;

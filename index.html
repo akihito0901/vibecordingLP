@@ -425,12 +425,37 @@
             display: inline-block;
             margin-bottom: 20px;
         }
+
+        /* CTAボタンアニメーション */
+        .pulse-button {
+            animation: pulse-cta 2s infinite;
+        }
+
+        @keyframes pulse-cta {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 10px 30px rgba(40, 167, 69, 0.4);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 15px 40px rgba(40, 167, 69, 0.7);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 10px 30px rgba(40, 167, 69, 0.4);
+            }
+        }
+
+        .pulse-button:hover {
+            animation: none;
+            transform: translateY(-3px) scale(1.02);
+        }
     </style>
 </head>
 <body>
     <!-- 価格アラート -->
     <div class="price-alert">
-        🔥 期間限定特価！通常39,800円 → 今なら19,800円（50%OFF）残り1ヶ月間のみ！
+        🔥 期間限定特価！通常39,800円 → 今なら19,800円（50%OFF）8月末まで限定！
     </div>
 
     <!-- ヒーローセクション -->
@@ -636,12 +661,21 @@
                 <div class="discount-badge">期間限定50%OFF</div>
                 <div class="original-price">通常価格：39,800円</div>
                 <div class="current-price">19,800円</div>
+                
+                <!-- カウントダウンタイマー -->
+                <div style="background: rgba(255, 107, 107, 0.2); border: 2px solid #ff6b6b; border-radius: 15px; padding: 20px; margin: 20px 0;">
+                    <h3 style="color: #ff6b6b; margin-bottom: 10px;">⏰ 残り時間</h3>
+                    <div id="countdown-main" style="font-size: 1.8rem; font-weight: bold; color: #ff6b6b;">
+                        <!-- JavaScriptで更新 -->
+                    </div>
+                </div>
+                
                 <p style="margin: 20px 0; opacity: 0.9;">
                     月額保守費1ヶ月分以下の価格で、<br>
                     一生使えるスキルを習得
                 </p>
                 
-                <button class="stripe-button" onclick="handlePurchase()">
+                <button class="stripe-button pulse-button" onclick="handlePurchase()">
                     今すぐ始める
                 </button>
                 
@@ -653,7 +687,7 @@
 
             <div style="text-align: center; margin-top: 40px;">
                 <p style="font-size: 1.1rem; color: #ff6b6b; font-weight: bold;">
-                    ⚠️ この価格は残り1ヶ月間のみです
+                    ⚠️ この価格は8月末まで限定です
                 </p>
             </div>
         </div>
@@ -715,7 +749,7 @@
             </div>
 
             <div style="text-align: center; margin-top: 40px;">
-                <button class="stripe-button" onclick="handlePurchase()">
+                <button class="stripe-button pulse-button" onclick="handlePurchase()">
                     質問が解決したら今すぐ始める
                 </button>
             </div>
@@ -756,12 +790,12 @@
                     選択するのは、あなたです。
                 </p>
                 
-                <button class="stripe-button" onclick="handlePurchase()" style="font-size: 1.3rem; padding: 25px 50px;">
+                <button class="stripe-button pulse-button" onclick="handlePurchase()" style="font-size: 1.3rem; padding: 25px 50px;">
                     未来を変える決断をする
                 </button>
                 
                 <p style="font-size: 0.9rem; margin-top: 20px; opacity: 0.7;">
-                    この価格は残り1ヶ月間限定です
+                    この価格は8月末まで限定です
                 </p>
             </div>
         </div>
@@ -774,7 +808,7 @@
                 <strong>期間限定19,800円</strong><br>
                 <small>月額費用を永久に0円にする</small>
             </div>
-            <button onclick="handlePurchase()">今すぐ始める</button>
+            <button class="pulse-button" onclick="handlePurchase()">今すぐ始める</button>
         </div>
     </div>
 
@@ -829,10 +863,9 @@
             });
         });
 
-        // カウントダウンタイマー（オプション）
+        // カウントダウンタイマー
         function updateCountdown() {
-            const deadline = new Date();
-            deadline.setDate(deadline.getDate() + 30); // 30日後
+            const deadline = new Date('2024-08-31T23:59:59+09:00'); // 8月31日23:59:59 JST
             
             const now = new Date();
             const timeLeft = deadline - now;
@@ -841,12 +874,25 @@
                 const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
                 
-                // 必要に応じてカウントダウン表示を更新
+                const countdownText = `${days}日 ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                // メインカウントダウン更新
+                const mainCountdown = document.getElementById('countdown-main');
+                if (mainCountdown) {
+                    mainCountdown.innerHTML = countdownText;
+                }
+            } else {
+                const mainCountdown = document.getElementById('countdown-main');
+                if (mainCountdown) {
+                    mainCountdown.innerHTML = '期間終了';
+                }
             }
         }
         
         setInterval(updateCountdown, 1000);
+        updateCountdown(); // 初回実行
     </script>
 </body>
 </html>
