@@ -355,6 +355,9 @@
 
         /* レスポンシブ */
         @media (max-width: 768px) {
+            .desktop-only { display: none; }
+            .mobile-only { display: block; }
+            
             .comparison-row {
                 grid-template-columns: 1fr;
             }
@@ -546,6 +549,81 @@
             animation: none;
             transform: translateY(-3px) scale(1.02);
         }
+
+        /* デスクトップ・モバイル表示切り替え */
+        .desktop-only { display: block; }
+        .mobile-only { display: none; }
+
+        /* モバイル比較表 */
+        .mobile-comparison {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .mobile-comparison-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-vs {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .mobile-old, .mobile-new {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .mobile-old {
+            background: rgba(255, 107, 107, 0.1);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+        }
+
+        .mobile-new {
+            background: rgba(40, 167, 69, 0.1);
+            border: 1px solid rgba(40, 167, 69, 0.3);
+        }
+
+        .mobile-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 8px;
+        }
+
+        .mobile-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .mobile-price.bad {
+            color: #ff6b6b;
+        }
+
+        .mobile-price.good {
+            color: #28a745;
+        }
+
+        .mobile-vs-icon {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
     </style>
 </head>
 <body>
@@ -572,7 +650,7 @@
     </section>
 
     <!-- 革命セクション -->
-    <section class="section revolution">
+    <section class="section revolution" style="background: linear-gradient(135deg, #2d1b69 0%, #11998e 100%);"&gt;
         <div class="container">
             <h2 class="section-title">🔥 バイブコーディング革命とは？</h2>
             <p style="text-align: center; font-size: 1.2rem; margin-bottom: 40px; opacity: 0.9;">
@@ -711,11 +789,12 @@
     </section>
 
     <!-- 比較セクション -->
-    <section class="section comparison">
+    <section class="section comparison" style="background: linear-gradient(135deg, #0c4a6e 0%, #0f766e 100%);"&gt;
         <div class="container">
             <h2 class="section-title">💸 従来 vs バイブコーディング</h2>
             
-            <div class="comparison-table">
+            <!-- PC用の表 -->
+            <div class="comparison-table desktop-only">
                 <div class="comparison-row">
                     <div class="comparison-cell comparison-header">項目</div>
                     <div class="comparison-cell comparison-header">従来の方法</div>
@@ -750,6 +829,84 @@
                     <div class="comparison-cell">年間コスト</div>
                     <div class="comparison-cell"><span class="comparison-price">12-60万円</span></div>
                     <div class="comparison-cell comparison-our"><span class="comparison-price">0円</span></div>
+                </div>
+            </div>
+
+            <!-- スマホ用のカード式レイアウト -->
+            <div class="mobile-comparison mobile-only">
+                <div class="mobile-comparison-item">
+                    <h3 style="color: #ff6b6b; margin-bottom: 15px;">💰 HP制作費用</h3>
+                    <div class="mobile-vs">
+                        <div class="mobile-old">
+                            <div class="mobile-label">従来の方法</div>
+                            <div class="mobile-price bad">60-200万円</div>
+                        </div>
+                        <div class="mobile-vs-icon">VS</div>
+                        <div class="mobile-new">
+                            <div class="mobile-label">バイブコーディング</div>
+                            <div class="mobile-price good">0円</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mobile-comparison-item">
+                    <h3 style="color: #ff6b6b; margin-bottom: 15px;">📄 LP制作費用</h3>
+                    <div class="mobile-vs">
+                        <div class="mobile-old">
+                            <div class="mobile-label">従来の方法</div>
+                            <div class="mobile-price bad">50-150万円</div>
+                        </div>
+                        <div class="mobile-vs-icon">VS</div>
+                        <div class="mobile-new">
+                            <div class="mobile-label">バイブコーディング</div>
+                            <div class="mobile-price good">0円</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mobile-comparison-item">
+                    <h3 style="color: #ff6b6b; margin-bottom: 15px;">🔧 月額保守費用</h3>
+                    <div class="mobile-vs">
+                        <div class="mobile-old">
+                            <div class="mobile-label">従来の方法</div>
+                            <div class="mobile-price bad">1-5万円</div>
+                        </div>
+                        <div class="mobile-vs-icon">VS</div>
+                        <div class="mobile-new">
+                            <div class="mobile-label">バイブコーディング</div>
+                            <div class="mobile-price good">0円</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mobile-comparison-item">
+                    <h3 style="color: #ff6b6b; margin-bottom: 15px;">⏱️ 制作期間</h3>
+                    <div class="mobile-vs">
+                        <div class="mobile-old">
+                            <div class="mobile-label">従来の方法</div>
+                            <div class="mobile-price bad">2-4週間</div>
+                        </div>
+                        <div class="mobile-vs-icon">VS</div>
+                        <div class="mobile-new">
+                            <div class="mobile-label">バイブコーディング</div>
+                            <div class="mobile-price good">30分</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mobile-comparison-item">
+                    <h3 style="color: #ff6b6b; margin-bottom: 15px;">📅 年間コスト</h3>
+                    <div class="mobile-vs">
+                        <div class="mobile-old">
+                            <div class="mobile-label">従来の方法</div>
+                            <div class="mobile-price bad">12-60万円</div>
+                        </div>
+                        <div class="mobile-vs-icon">VS</div>
+                        <div class="mobile-new">
+                            <div class="mobile-label">バイブコーディング</div>
+                            <div class="mobile-price good">0円</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1019,7 +1176,7 @@
     </section>
 
     <!-- 価格セクション -->
-    <section id="price" class="section results">
+    <section id="price" class="section results" style="background: linear-gradient(135deg, #7c2d12 0%, #dc2626 100%);"&gt;
         <div class="container">
             <h2 class="section-title">💎 特別価格</h2>
             
